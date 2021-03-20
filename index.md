@@ -1,4 +1,3 @@
-# Angles
 Angles is a centralised dashboard where you can store your automated test results and screenshots using a clearly defined [API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/AnglesHQ/angles/master/swagger/swagger.json). By providing this API, you are no longer limited to a single framework or programming language and can use the same dashboard for all your test automation.
 
 Some of the features currently provided by Angles are:
