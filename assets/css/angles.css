@@ -1,11 +1,16 @@
-#header_wrap {
+#header_wrap,
+footer_wrap {
     background: #373a47;
     color: #b8b7ad;
 }
 
 #angles_banner {
-    width: 300px;
+    width: 400px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
