@@ -4,8 +4,12 @@ footer_wrap {
     color: #b8b7ad;
 }
 
+.inner {
+    padding: none;
+}
+
 #angles_banner {
-    width: 400px;
+    width: 600px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -13,4 +17,5 @@ footer_wrap {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    margin: none;
 }
