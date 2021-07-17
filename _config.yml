@@ -1,4 +1,6 @@
 theme: jekyll-theme-slate
 title: Angles
 description: Start looking at your automated test results from all Angles
-is_project_page: false
+
+github:
+  is_project_page: false
