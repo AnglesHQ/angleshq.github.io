@@ -2,9 +2,7 @@
 ---
 
 @import "{{ site.theme }}";
-
-#header_wrap,
-#footer_wrap{
+#header_wrap {
     background: #373a47;
     color: #b8b7ad;
 }
