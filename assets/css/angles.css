@@ -1,0 +1,11 @@
+#header_wrap {
+    background: #373a47;
+    color: #b8b7ad;
+}
+
+#angles_banner {
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
