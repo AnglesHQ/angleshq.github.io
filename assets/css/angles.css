@@ -4,10 +4,11 @@ footer_wrap {
     color: #b8b7ad;
 }
 
-#header_wrap .inner {
-    padding: none;
+.inner-header {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
 }
-
 #angles_banner {
     width: 600px;
     display: block;
