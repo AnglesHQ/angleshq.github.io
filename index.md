@@ -1,4 +1,4 @@
-Angles is a centralised test automation dashboard where you can store your automated test results and screenshots using a clearly defined [API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/AnglesHQ/angles/master/swagger/swagger.json). By using this API, you are no longer limited to a single framework or programming language and can use the same dashboard for all your test automation frameworks. If you would like a quick intoduction on Angles and to see how easy it is to setup, just watch the video below.
+Angles is a centralised test automation dashboard where you can store your automated test results and screenshots using a clearly defined [API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/AnglesHQ/angles/master/swagger/swagger.json). By using this API, you are no longer limited to a single framework or programming language and can use the same dashboard for all your test automation frameworks. If you would like a quick introduction on Angles and to see how easy it is to set up, just watch the video below.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/auIqV8pgvi4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 **YouTube**: *Introduction to and setup of Angles Test Automation Dashboard*
@@ -28,7 +28,7 @@ The Angles dashboard consists of 3 containers:
 
 ### The back-end
 The back-end for Angles provides an API to create, retrieve, update and remove your automation test data. 
-It has been [configured](https://github.com/AnglesHQ/angles/blob/master/config/database.config.js) to use a local instance of mongo which is set-up using docker-compose. However, you can modify that config file and point it to another mongo instance (as long as it's setup with the right credentials and collections using the [mongo-init.js](https://github.com/AnglesHQ/angles/blob/master/setup/mongo-init.js))
+It has been [configured](https://github.com/AnglesHQ/angles/blob/master/config/database.config.js) to use a local instance of mongo which is set up using docker-compose. However, you can modify that config file and point it to another mongo instance (as long as it's setup with the right credentials and collections using the [mongo-init.js](https://github.com/AnglesHQ/angles/blob/master/setup/mongo-init.js))
 
 If you want to run the Angles back-end locally with debug logging turned on, just navigate to the Angles folder in the terminal and run the following command.
 ``` shellscript
@@ -40,7 +40,7 @@ DEBUG=*:controller node server.js | ./node_modules/.bin/pino-pretty
 ### The front-end (UI)
 The Angles front-end uses the Angles API (provided by the back-end) to retrieve and display the stored test data and screenshots. To do this, it makes use of the [angles-javascript-client](https://github.com/AnglesHQ/angles-javascript-client) (the same client used for javascript tests).
 
-To run the Angles front-end locally you can run the following command in the terminal. Make sure you provide the entire url for the api (e.g. http://127.0.0.1:3000).
+To run the Angles front-end locally you can run the following command in the terminal. Make sure you provide the entire url for the api (e.g., http://127.0.0.1:3000).
 ```shellscript
 # clone the front-end repo and run:
 PORT=3001 REACT_APP_ANGLES_API_URL=<angles_api_url> npm start
@@ -49,9 +49,9 @@ PORT=3001 REACT_APP_ANGLES_API_URL=<angles_api_url> npm start
 
 ### Setting up Angles (with Docker-Compose)
 To set up your own instance of the Angles dashboard you can use the [docker compose](https://github.com/AnglesHQ/angles/blob/master/setup/docker-compose.yml) file and [Docker-compose](https://docs.docker.com/compose/).
-You'll need to clone the angles project and then using a terminal navigate to the *"setup"* which contains the docker-compose.yml file and the mongo-init.js file. The mongo-int.js file will setup the necessary database collections and indexes.
+You'll need to clone the angles project and then using a terminal navigate to the *"setup"* which contains the docker-compose.yml file, and the mongo-init.js file. The mongo-int.js file will set up the necessary database collections and indexes.
 
-If you're not running Angles locally (e.g., 127.0.0.1), you should also change the environment variable "REACT_APP_ANGLES_API_URL" in the docker-compose file to point to the url where the angles API is accessible (e.g. domain name or external ip address).
+If you're not running Angles locally (e.g., 127.0.0.1), you should also change the environment variable "REACT_APP_ANGLES_API_URL" in the docker-compose file to point to the url where the angles API is accessible (e.g., domain name or external ip address).
 
 ```shellscript
 # run in same directory as docker-compose file
@@ -81,9 +81,9 @@ Before you can store any test results in the Angles dashboard you will need to s
 
 **NOTE:** Your team, component and environment have to exist before you can start adding builds for the relevant team (otherwise angles will return an error when trying to store the results). 
 
-If you would like to use the [TestNG-Example Project](https://github.com/AnglesHQ/testng-example) setup the example team, component and environment mentioned below using the angles-api which is accessible via the following url when you setup the containers locally: [http://127.0.0.1:3000/api-docs](http://127.0.0.1:3000/api-docs).
+If you would like to use the [TestNG-Example Project](https://github.com/AnglesHQ/testng-example) set up the example team, component and environment mentioned below using the angles-api which is accessible via the following url when you set up the containers locally: [http://127.0.0.1:3000/api-docs](http://127.0.0.1:3000/api-docs).
 
-- Setup a team (using the API)
+- Set up a team (using the API)
 
 ``` json
 {
@@ -95,7 +95,7 @@ If you would like to use the [TestNG-Example Project](https://github.com/AnglesH
   ]
 }
 ```
-- Setup an environment (using the API)
+- Set up an environment (using the API)
 
 ``` json
 {
@@ -108,6 +108,6 @@ Please refer to the Swagger endpoint once your instance is up and running and cl
 ### Angles Cleanup (Cron)
 As you can imagine, storing all the test data (and screenshots) without any form of cleanup can mean your instance of Angles can fill up quite quickly.
 Therefore, Angles has a nightly cron that will use the build delete API to remove any builds and screenshots **older than 90 days**. If you would like to change this number please BUILD_CLEAN_UP_AGE_IN_DAYS value in the docker-compose file and run the docker-compose command again. 
-If you want to keep specific builds there is a "keep" flag which can be set. With this flag set, those builds will not be removed as part of the nightly run (once they hit the configured age). 
+If you want to keep specific builds,there is a "keep" flag which can be set. With this flag set, those builds will not be removed as part of the nightly run (once they hit the configured age). 
 
 **NOTE** The cleanup will not remove any builds that contain a "baseline" image (to ensure these can still be used for comparison).
