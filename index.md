@@ -47,7 +47,7 @@ If you're not running Angles locally (e.g., 127.0.0.1), you should also change t
 
 ```shellscript
 # run in same directory as docker-compose file
-docker-compose up -d  
+docker-compose pull && docker-compose -f docker-compose.yml up -d 
 ```
 
 ### Tearing down Angles
