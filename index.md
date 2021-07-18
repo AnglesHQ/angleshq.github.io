@@ -1,6 +1,6 @@
 Angles is a centralised test automation dashboard where you can store your automated test results and screenshots using a clearly defined [API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/AnglesHQ/angles/master/swagger/swagger.json). By using this API, you are no longer limited to a single framework or programming language and can use the same dashboard for all your test automation frameworks. If you would like a quick introduction on Angles and to see how easy it is to set up, just watch the video below.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/auIqV8pgvi4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/auIqV8pgvi4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 **YouTube**: *Introduction to and setup of Angles Test Automation Dashboard*
 
 Some features already provided by Angles are:
@@ -17,7 +17,7 @@ Some features already provided by Angles are:
 
 Feel free to watch the video below where I go over the features in Angles.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ypE4SknhTh8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/ypE4SknhTh8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 **YouTube**: *Features of the Angles Test Automation Dashboard*
 
 ## Overview
