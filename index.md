@@ -1,5 +1,7 @@
 Angles is a centralised test automation dashboard where you can store your automated test results and screenshots using a clearly defined [API](https://editor.swagger.io/?url=https://raw.githubusercontent.com/AnglesHQ/angles/master/swagger/swagger.json). By using this API, you are no longer limited to a single framework or programming language and can use the same dashboard for all your test automation frameworks.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/auIqV8pgvi4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 Some features already provided by Angles are:
 - Visual comparison (against a configurable baseline)
 - Setting ignore boxes for the visual comparisons (areas to exclude in the compare)
@@ -11,6 +13,8 @@ Some features already provided by Angles are:
 - Automatic cleanup of builds and screenshots after 90 days (configurable) 
 - Test Case history (look at a single test case over time)
 - Test Matrix (multiple test run comparison)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ypE4SknhTh8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Overview
 The Angles dashboard consists of 3 containers:
