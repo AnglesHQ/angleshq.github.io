@@ -86,7 +86,7 @@ Before you can store any test results in the Angles dashboard you will need to s
 
 **NOTE:** Your team, component and environment have to exist before you can start adding builds for the relevant team (otherwise angles will return an error when trying to store the results). 
 
-If you would like to use the [Java Examples](https://github.com/AnglesHQ/angles-java-examples) set up the example team, component and environment mentioned below using the angles-api which is accessible via the following url when you set up the containers locally: [http://127.0.0.1:3000/api-docs](http://127.0.0.1:3000/api-docs).
+If you would like to use the [Java examples](https://github.com/AnglesHQ/angles-java-examples) or the [webdriverIO example](https://github.com/AnglesHQ/webdriverio-example), set up the example team, component and environment mentioned below using the angles-api which is accessible via the following url when you set up the containers locally: [http://127.0.0.1:3000/api-docs](http://127.0.0.1:3000/api-docs).
 
 - Set up a team (using the API)
 
