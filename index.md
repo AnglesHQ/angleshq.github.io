@@ -26,6 +26,13 @@ The Angles dashboard consists of 3 containers:
 - a back-end ([angles](https://hub.docker.com/u/angleshq/angles))
 - a Mongo container (to store the results)
 
+
+<div style="width: 80%; padding-left: 2em; padding-top: 1em;">
+
+![angles architecture](./assets/images/angles-architecture.png)
+**Image** : Angles architecture (as it currently stands)
+</div>
+
 ### The back-end
 The back-end for Angles provides an API to create, retrieve, update and remove your automation test data. 
 It has been [configured](https://github.com/AnglesHQ/angles/blob/master/config/database.config.js) to use a local instance of mongo which is set up using docker-compose. However, you can modify that config file and point it to another mongo instance (as long as it's setup with the right credentials and collections using the [mongo-init.js](https://github.com/AnglesHQ/angles/blob/master/setup/mongo-init.js))
