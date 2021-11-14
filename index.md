@@ -27,11 +27,9 @@ The Angles dashboard consists of 3 containers:
 - a Mongo container (to store the results)
 
 
-<div style="width: 80%; padding-left: 2em; padding-top: 1em;">
-
 ![angles architecture](./assets/images/angles-architecture.png)
 **Image** : Angles architecture (as it currently stands)
-</div>
+
 
 ### The back-end
 The back-end for Angles provides an API to create, retrieve, update and remove your automation test data. 
