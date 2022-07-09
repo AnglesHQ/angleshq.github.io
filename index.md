@@ -116,3 +116,7 @@ Therefore, Angles has a nightly cron that will use the build delete API to remov
 If you want to keep specific builds,there is a "keep" flag which can be set. With this flag set, those builds will not be removed as part of the nightly run (once they hit the configured age). 
 
 **NOTE** The cleanup will not remove any builds that contain a "baseline" image (to ensure these can still be used for comparison).
+
+### Support
+As an open source tool we would like the thank the following companies for providing support to us and the open-source community:
+<a href="https://jb.gg/OpenSourceSupport" target="_blank"><img src="./assets/images/logos/jetbrains_logo.png" width="200" height="200" /></a>
