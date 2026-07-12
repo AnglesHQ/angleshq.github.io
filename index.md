@@ -63,7 +63,7 @@ If you're not running Angles locally (e.g., 127.0.0.1), you should also change t
 docker-compose pull && docker-compose -f docker-compose.yml up -d 
 ```
 
-### Tearing down Angles
+#### Tearing down Angles
 If you would like to tear down the containers, you can run the following command in the directory with the docker-compose.yml file.
 
 ```shellscript
@@ -71,6 +71,39 @@ If you would like to tear down the containers, you can run the following command
 docker-compose down
 ```
 **NOTE**: Angles creates volumes to store persistent data (e.g., database config and records), and these will remain even after running the command above. If you wanted to remove this as well you would have to do manually.
+
+### Setting up Angles (with Kubernetes Manifests)
+
+The manifests for Angles can be found 
+
+### Authentication & User Management
+Angles requires users to sign in. A fresh instance is seeded (via [mongo-init.js](https://github.com/AnglesHQ/angles/blob/master/setup/mongo-init.js)) with a single administrator account:
+
+- **username:** `admin`
+- **password:** `admin`
+
+**NOTE:** Change this password immediately after your first login.
+
+#### Roles
+Every user has one of three roles:
+
+- **admin** – full access, including user management and authentication settings.
+- **team_lead** – elevated access for the teams they belong to.
+- **user** – standard access.
+
+Administrators can create and manage users, roles and team membership from the **Admin → User Management** page in the UI.
+
+#### API tokens
+Interactive login uses a session cookie, but automated clients (CI pipelines, the [Java](https://github.com/AnglesHQ/angles-java-client), [JavaScript](https://github.com/AnglesHQ/angles-javascript-client) and [Python](https://github.com/AnglesHQ/angles-python-client) clients) authenticate with a personal API token. Generate a token from the **User Settings** page and supply it on each request via the `x-api-key` header.
+
+#### Okta (SSO)
+Angles can additionally authenticate users through Okta using OpenID Connect. **Okta is configured entirely from the UI** — go to **Admin → Settings (Authentication Settings)**, enable Okta and provide:
+
+- the Okta **issuer** and **client ID**,
+- the **client secret** (write-only: once saved it can be updated but never read back),
+- the Okta **groups** to map to the Admin, Team Lead and User roles.
+
+Group membership is resolved on each login and a user is granted the highest-privilege role they match (Admin > Team Lead > User). These settings are stored in the database and take effect without a restart; **none of them are configured through environment variables.** The only Okta-related deployment value is the OIDC redirect URL (`OKTA_CALLBACK_URL`), which depends on where the app is hosted.
 
 ### Angles API
 Once Angles is running, you can access the documentation by navigating to the following url http://<angles-server-ip:3000/api-docs.
