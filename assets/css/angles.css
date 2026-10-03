@@ -20,3 +20,31 @@
     box-shadow: none;
     margin: none;
 }
+
+/*
+ * The banner is a fixed 600px wide; let it shrink with the screen. The theme gives
+ * images padding outside their width and a negative margin on phones, which pushed it
+ * past the edge, so size it including its padding and centre it.
+ */
+#angles_banner {
+    box-sizing: border-box;
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+}
+
+/*
+ * Wide tables (e.g. the configuration reference) pushed the page to ~600px on phones,
+ * so the browser zoomed the whole page out. Let a table scroll sideways inside the
+ * content column instead; code values stay unbroken.
+ */
+#main_content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#main_content pre {
+    max-width: 100%;
+}
