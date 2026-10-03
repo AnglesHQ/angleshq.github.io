@@ -24,6 +24,7 @@ Angles is an open-source, centralised test dashboard. You store your automated t
     - the test phase (e.g. smoke, regression)
     - artifact versions of the system under test
     - platform details (platform, browser, device, screen size, etc.)
+- Test attachments: console logs, network HAR files, videos, Playwright traces, page HTML snapshots and images, attached to a test or a single step and shown in the UI with a viewer for each
 - Batch mode in the clients, which stores every test execution for a build in a single request
 - Test execution history, which follows a single test case over time
 - Test run comparison (a test matrix of multiple runs side by side)
@@ -149,6 +150,7 @@ As with the Docker Compose setup, review the config manifest first. Set the envi
 | `TRUST_PROXY` | `false` | Set to `true` when running behind a TLS-terminating reverse proxy. |
 | `BUILD_CLEAN_UP_AGE_IN_DAYS` | `90` | Age after which the nightly clean-up removes builds. |
 | `ANGLES_MANUAL_TESTING_ENABLED` | `true` | *Seed* for the manual testing feature toggle (only used on first run). |
+| `ANGLES_ATTACHMENT_MAX_SIZE_MB` | `100` | Largest file a test can attach (logs, HAR files, videos, traces, HTML snapshots). |
 | `IMAGE_ENGINE_WORKERS` | 1–2, based on CPU count | Size of the image engine worker pool. |
 | `IMAGE_ENGINE_TASK_TIMEOUT_MS` | `120000` | Timeout for a single image task. |
 | `ANGLES_METRICS_TOKEN` / `ANGLES_METRICS_PUBLIC` | unset | Enable the Prometheus endpoint (see [Monitoring](#monitoring-with-prometheus--grafana)). |
@@ -263,6 +265,32 @@ All API requests require authentication. Before storing any results, configure t
 #### Batch mode (single request for all executions)
 By default the reporter sends each test execution to the Angles API as soon as `saveTest()` is called. If you enable batch mode with `setBatchMode(true)`, the reporter collects the executions instead. Calling `saveAllTests()` at the end of the run then stores all of them against the current build in a single request (`PUT /build/{buildId}/executions`). For large test runs this cuts the number of API calls significantly. The build is still created up-front, and screenshots are still uploaded one at a time as the tests run.
 
+#### Attachments (logs, HAR files, videos, traces, HTML)
+A test can attach files to its results, for the whole test or for one step. Each client has the same four methods (`attach_file`, `attach_data`, `attach_file_to_last_step` and `attach_data_to_last_step` in Python):
+
+```javascript
+anglesReporter.fail('Order confirmation', 'Order confirmed', 'Payment declined', '');
+await anglesReporter.attachDataToLastStep(await page.content(), 'page.html'); // this step
+await anglesReporter.attachFile('/path/to/trace.zip');                         // the whole test
+await anglesReporter.attachFile('/path/to/network.har');
+await anglesReporter.saveTest();
+```
+
+Files are uploaded against the build as soon as you attach them (`POST /build/{buildId}/attachment`), and linked to the test when it's saved, so this works in batch mode too. The file extension decides how the UI shows it:
+
+| Extension | Shown as |
+| --- | --- |
+| `.log`, `.txt` | Text with line numbers and a filter |
+| `.json` | Formatted JSON with a filter |
+| `.har` | A table of requests, with failed ones highlighted |
+| `.webm`, `.mp4` | A video player |
+| `.zip` with "trace" in the name | A Playwright trace (download it and open it at [trace.playwright.dev](https://trace.playwright.dev)) |
+| other `.zip` | A download |
+| `.html`, `.htm` | The page, with scripts disabled |
+| `.png`, `.jpg`, `.jpeg`, `.gif`, `.webp` | The image |
+
+The size limit is `ANGLES_ATTACHMENT_MAX_SIZE_MB` (100 MB by default). Attachments are stored on the same volume as manual-testing attachments.
+
 #### Execution type
 Automated clients never set `executionType`: builds they create are always `automated`. Manual runs are created only through the manual test management API, so a manual build on the dashboard always has a real manual run behind it.
 
@@ -343,7 +371,7 @@ scrape_configs:
 A [ready-to-import Grafana dashboard](https://github.com/AnglesHQ/angles/tree/master/docs/grafana) is included. For the full metric list and suggested alerts, see [prometheus-metrics.md](https://github.com/AnglesHQ/angles/blob/master/docs/prometheus-metrics.md).
 
 ## Angles clean-up (cron)
-Storing all your test data (and screenshots) without any clean-up can fill up your instance of Angles quickly. That's why the back-end container runs a nightly cron job (01:00) that uses the build delete API to remove any builds and screenshots **older than 90 days**. To change this number, update the `BUILD_CLEAN_UP_AGE_IN_DAYS` value in the docker-compose file (or the Kubernetes config) and redeploy.
+Storing all your test data (and screenshots) without any clean-up can fill up your instance of Angles quickly. That's why the back-end container runs a nightly cron job (01:00) that uses the build delete API to remove any builds, screenshots and test attachments **older than 90 days**. To change this number, update the `BUILD_CLEAN_UP_AGE_IN_DAYS` value in the docker-compose file (or the Kubernetes config) and redeploy.
 To keep specific builds, set their "keep" flag (from the UI or with `PUT /build/{buildId}/keep`). Builds with this flag set aren't removed by the nightly run, even once they reach the configured age.
 
 **NOTE:** The clean-up doesn't remove builds that contain a "baseline" image, so these can still be used for comparisons.
