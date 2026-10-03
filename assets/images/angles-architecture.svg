@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" font-family="Helvetica, Arial, sans-serif" font-size="14">
+  <title>Angles architecture</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <style>
+      .lane { fill: #9a9a9a; font-size: 20px; font-weight: bold; }
+      .box { stroke: #555; stroke-width: 1.5; rx: 6; }
+      .fw { fill: #d6ecf7; }
+      .client { fill: #ffd59a; }
+      .svc { fill: #fff1b8; }
+      .ext { fill: #e8e8e8; }
+      .vol { fill: #ffffff; }
+      .t { fill: #222; font-weight: bold; }
+      .s { fill: #444; font-size: 12px; }
+      .line { stroke: #555; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+  <rect width="980" height="560" fill="#ffffff"/>
+
+  <!-- lanes -->
+  <text class="lane" x="40" y="36">Test frameworks</text>
+  <text class="lane" x="250" y="36">Angles clients</text>
+  <text class="lane" x="560" y="36">Angles instance</text>
+  <line x1="220" y1="20" x2="220" y2="540" stroke="#bbb" stroke-dasharray="8 6"/>
+  <line x1="470" y1="20" x2="470" y2="540" stroke="#bbb" stroke-dasharray="8 6"/>
+
+  <!-- frameworks -->
+  <rect class="box fw" x="20" y="70" width="180" height="44"/><text class="t" x="110" y="97" text-anchor="middle">WebdriverIO / JS</text>
+  <rect class="box fw" x="20" y="180" width="180" height="70"/><text class="t" x="110" y="205" text-anchor="middle">TestNG / JUnit5</text><text class="t" x="110" y="226" text-anchor="middle">CucumberJVM</text>
+  <rect class="box fw" x="20" y="300" width="180" height="44"/><text class="t" x="110" y="327" text-anchor="middle">pytest / Python</text>
+  <rect class="box ext" x="20" y="400" width="180" height="44"/><text class="t" x="110" y="427" text-anchor="middle">Any HTTP client</text>
+
+  <!-- clients -->
+  <rect class="box client" x="240" y="70" width="210" height="44"/><text class="t" x="345" y="97" text-anchor="middle">JavaScript client (npm)</text>
+  <rect class="box client" x="240" y="193" width="210" height="44"/><text class="t" x="345" y="220" text-anchor="middle">Java client (Maven)</text>
+  <rect class="box client" x="240" y="300" width="210" height="44"/><text class="t" x="345" y="327" text-anchor="middle">Python client (pip)</text>
+  <rect class="box ext" x="240" y="400" width="210" height="44"/><text class="t" x="345" y="420" text-anchor="middle">REST API directly</text><text class="s" x="345" y="436" text-anchor="middle">(OpenAPI / Swagger)</text>
+
+  <line class="line" x1="200" y1="92" x2="238" y2="92"/>
+  <line class="line" x1="200" y1="215" x2="238" y2="215"/>
+  <line class="line" x1="200" y1="322" x2="238" y2="322"/>
+  <line class="line" x1="200" y1="422" x2="238" y2="422"/>
+
+  <!-- instance frame -->
+  <rect x="490" y="56" width="470" height="484" fill="#f4f4f4" stroke="#999" rx="8"/>
+  <text class="s" x="725" y="74" text-anchor="middle">Docker Compose / Kubernetes</text>
+
+  <!-- UI -->
+  <rect class="box svc" x="640" y="84" width="300" height="62"/>
+  <text class="t" x="790" y="108" text-anchor="middle">angles-ui  (Next.js + RSuite)</text>
+  <text class="s" x="790" y="128" text-anchor="middle">Dashboard · port 3001</text>
+  <!-- Backend -->
+  <rect class="box svc" x="640" y="200" width="300" height="104"/>
+  <text class="t" x="790" y="224" text-anchor="middle">angles  (Node.js / Express API)</text>
+  <text class="s" x="790" y="244" text-anchor="middle">REST API /rest/api/v1.0 · /api-docs · port 3000</text>
+  <text class="s" x="790" y="262" text-anchor="middle">Auth (local, OIDC, SAML, LDAP) · image engine</text>
+  <text class="s" x="790" y="280" text-anchor="middle">worker pool · nightly clean-up cron</text>
+  <text class="s" x="790" y="296" text-anchor="middle">/metrics (Prometheus, opt-in)</text>
+  <!-- Mongo -->
+  <rect class="box svc" x="700" y="350" width="180" height="50"/>
+  <text class="t" x="790" y="380" text-anchor="middle">MongoDB 5</text>
+  <!-- volumes -->
+  <rect class="box vol" x="505" y="440" width="140" height="80"/><text class="t" x="575" y="470" text-anchor="middle">Volume</text><text class="s" x="575" y="490" text-anchor="middle">Mongo data</text><text class="s" x="575" y="506" text-anchor="middle">&amp; config</text>
+  <rect class="box vol" x="655" y="440" width="140" height="80"/><text class="t" x="725" y="470" text-anchor="middle">Volumes</text><text class="s" x="725" y="490" text-anchor="middle">screenshots</text><text class="s" x="725" y="506" text-anchor="middle">&amp; compares</text>
+  <rect class="box vol" x="805" y="440" width="140" height="80"/><text class="t" x="875" y="470" text-anchor="middle">Volume</text><text class="s" x="875" y="490" text-anchor="middle">attachments</text><text class="s" x="875" y="506" text-anchor="middle">(manual testing)</text>
+
+  <!-- external -->
+  <rect class="box ext" x="505" y="130" width="120" height="56"/><text class="t" x="565" y="153" text-anchor="middle">Identity</text><text class="s" x="565" y="172" text-anchor="middle">OIDC · SAML · LDAP</text>
+  <rect class="box ext" x="505" y="300" width="120" height="44"/><text class="t" x="565" y="320" text-anchor="middle">Prometheus</text><text class="s" x="565" y="336" text-anchor="middle">&amp; Grafana</text>
+
+  <!-- browser -->
+  <rect class="box ext" x="505" y="84" width="120" height="36"/><text class="t" x="565" y="107" text-anchor="middle">Browser</text>
+
+  <!-- flows -->
+  <line class="line" x1="625" y1="102" x2="638" y2="108"/>
+  <path class="line" d="M790,146 L790,198"/>
+  <text class="s" x="796" y="177">JS client</text>
+  <path class="line dash" d="M625,165 L638,215"/>
+  <path class="line" d="M625,318 L638,296"/>
+  <path class="line" d="M790,304 L790,348"/>
+  <path class="line" d="M700,375 L575,375 L575,438"/>
+  <path class="line" d="M670,304 L670,438"/>
+  <path class="line" d="M915,304 L915,438"/>
+
+  <!-- clients -> API -->
+  <path stroke="#555" stroke-width="1.5" fill="none" d="M450,92 L470,92 L470,422 L450,422 M450,215 L470,215 M450,322 L470,322"/>
+  <path class="line" d="M470,252 L638,252"/>
+  <text class="s" x="555" y="245" text-anchor="middle">x-api-key</text>
+</svg>
