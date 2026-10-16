@@ -28,7 +28,8 @@ Angles is an open-source, centralised test dashboard. You store your automated t
 - Batch mode in the clients, which stores every test execution for a build in a single request
 - Test execution history, which follows a single test case over time
 - Test run comparison (a test matrix of multiple runs side by side)
-- A downloadable HTML report for each build
+- A downloadable HTML report for each build, which opens offline and has a light/dark toggle (it follows your OS until you choose, and remembers your choice)
+- Who triggered each run: the user that created the build, and the name of the API token when it was reported with an API key (shown on the dashboard, the test run page and in the HTML report)
 - A "keep" flag, so important builds survive the nightly clean-up
 
 **Visual testing**
@@ -183,13 +184,18 @@ When running in production (`NODE_ENV=production`) you must also set **SESSION_S
 Every user has one of three roles:
 
 - **admin**: full access to every team, plus user management, authentication settings, feature management, custom fields, and creating or deleting teams and environments.
-- **team_lead**: elevated access to the teams they belong to, e.g. editing team settings and components, deleting test cases and runs, and managing shared steps.
+- **team_lead**: elevated access to the teams they belong to, e.g. editing team settings and components, managing the team's members, deleting test cases and runs, and managing shared steps.
 - **user**: standard access to the teams they belong to.
 
-Users who aren't admins can only see and report data for the teams they've been granted. Administrators manage users, roles and team membership from **Administration → Users** in the UI.
+Users who aren't admins can only see and report data for the teams they've been granted. Administrators manage users, roles and team membership from **Administration → Users** in the UI, where the table also shows when each user last signed in (local, LDAP or SSO sign-ins count; API-token requests do not).
+
+#### Team members (team leads)
+Team leads manage their own teams' membership from **Team Settings → Team Members**: they can see who is in the team, add an existing user by username, and remove a user. The same is available over the API (`GET`/`POST /team/{teamId}/members` and `DELETE /team/{teamId}/members/{userId}`, session authentication only).
+
+To keep lead access from being handed out through membership, a team lead can only add and remove users with the **user** role. They cannot add or remove other team leads or admins, and they cannot remove themselves; ask an admin for those. A user's membership of other teams is never affected.
 
 ### API tokens
-Interactive sign-in uses a session cookie. Automated clients (CI pipelines, and the [Java](https://github.com/AnglesHQ/angles-java-client), [JavaScript](https://github.com/AnglesHQ/angles-javascript-client) and [Python](https://github.com/AnglesHQ/angles-python-client) clients) authenticate with a personal API token instead. Generate a token from **User Settings → API Tokens** and send it on every request in the `x-api-key` header. The token is only shown once, when you create it, and you can revoke it at any time.
+Interactive sign-in uses a session cookie. Automated clients (CI pipelines, and the [Java](https://github.com/AnglesHQ/angles-java-client), [JavaScript](https://github.com/AnglesHQ/angles-javascript-client) and [Python](https://github.com/AnglesHQ/angles-python-client) clients) authenticate with a personal API token instead. Generate a token from **User Settings → API Tokens** and send it on every request in the `x-api-key` header. The token is only shown once, when you create it, and you can revoke it at any time. Builds created with a token record the token's owner and its name, so a run can always be traced back to the pipeline that reported it.
 
 ### Single sign-on (OIDC, SAML 2.0 and LDAP)
 Next to local password accounts, Angles supports any number of single sign-on providers. **All provider configuration happens in the admin UI** (**Administration → Settings → Authentication**). It is stored in the database and takes effect without a restart or redeploy. The only related deployment values are `ANGLES_BASE_URL` (used to derive the callback URLs), `SESSION_SECRET`, and `SECURE_COOKIES` / `TRUST_PROXY` when serving over HTTPS.
